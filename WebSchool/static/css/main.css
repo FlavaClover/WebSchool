@@ -1,0 +1,54 @@
+body{
+    background: antiquewhite;
+}
+h1{
+    color: #000c31;
+}
+.div_header{
+    display: inline-flex;
+    /*background-color: red;*/
+    margin: 0 8%;
+    text-align: center;
+}
+.a_header
+{
+    color: white;
+    margin: 0 30px;
+    text-decoration: none;
+}
+.div_content
+{
+    position: fixed; /* or absolute */
+    top: 30%;
+    left: 15%;
+    width: 70%;
+    height: 100%;
+    border: 4px double wheat;
+}
+.div_news
+{
+    display: inline-flex;
+    background-color: #e2d4d4;
+    width: 100%;
+    border: 4px groove wheat;
+
+}
+.div_news image
+{
+    margin: 0 10%;
+}
+.div_news h1, p
+{
+    margin: 5% ;
+}
+.div_news a
+{
+    color: black;
+    text-decoration: none;
+}
+
+.div_news_content
+{
+    /*background-color: aqua;*/
+    width: 50%;
+}
