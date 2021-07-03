@@ -1,0 +1,15 @@
+{% extends "html/base.html" %}
+{% load static %}
+{% block Title %} {{ News.title }} {% endblock Title %}
+
+{% block Content %}
+    <h1 align="center">Новости</h1>
+    <div class="div_content">
+        <h1 align="center">{{ News.title }}</h1>
+        <div class="div_news_content">
+            <p class="p_news">{{ News.content }}</p>
+        </div>
+    </div>
+
+
+{% endblock Content %}

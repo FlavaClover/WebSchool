@@ -19,6 +19,6 @@ from school import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
+    path('', views.index, name='home'),
     path('news/<int:id_news>', views.news_view, name='news_page'),
 ]

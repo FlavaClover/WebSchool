@@ -3,7 +3,6 @@
 {% block Title %} Главная {% endblock Title %}
 {% block Content %}
     <h1 align="center">Новости</h1>
-
     <div class="div_content">
         {% for n in News %}
             <div class="div_news">
@@ -14,5 +13,8 @@
                 </div>
             </div>
         {% endfor %}
+        <div class="div_pagination">
+            {% include 'html/pagination.html' with page=News %}
+        </div>
     </div>
 {% endblock Content %}
