@@ -1,6 +1,8 @@
+import datetime
+
 from django.shortcuts import render
 from django.http import HttpResponse
-from school.models import News
+from school.models import News, Feedback
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from school import forms
 
@@ -16,10 +18,8 @@ def index(request) -> HttpResponse:
     try:
         news = paginator.page(page)
     except PageNotAnInteger:
-        # Если страница не является целым числом, поставим первую страницу
         news = paginator.page(1)
     except EmptyPage:
-        # Если страница больше максимальной, доставить последнюю страницу результатов
         news = paginator.page(paginator.num_pages)
     return render(request, "html/index.html", context={"News": news, 'page': page})
 
@@ -31,4 +31,27 @@ def news_view(request, id_news: int) -> HttpResponse:
 
 
 def feedbacks(request) -> HttpResponse:
-    return render(request, "html/feedbacks.html", context={"FeedbackForm": forms.Feedbacks})
+    """Отзывы"""
+    objects = Feedback.objects.all()
+    objects = list(reversed(objects))
+    paginator = Paginator(objects, 3)
+    page = request.GET.get('page')
+    try:
+        feedbacks_models = paginator.page(page)
+    except PageNotAnInteger:
+        feedbacks_models = paginator.page(1)
+    except EmptyPage:
+        feedbacks_models = paginator.page(paginator.num_pages)
+    return render(request, "html/feedbacks.html", context={"Feedbacks": feedbacks_models, 'page': page})
+
+
+def send_feedback(request) -> HttpResponse:
+    if request.POST:
+        short = request.POST.get('title')
+        content = request.POST.get('content')
+        author = request.POST.get('author')
+        date = datetime.date.today()
+        f = Feedback.objects.create(title=short, content=content, author=author, date=date)
+        f.save()
+
+    return render(request, "html/send_feedback.html", context={"FeedbackForm": forms.Feedbacks})

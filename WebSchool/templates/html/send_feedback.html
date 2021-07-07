@@ -1,0 +1,15 @@
+{% extends "html/base.html" %}
+{% block Title %} Оставить отзыв {% endblock Title %}
+{% block Content %}
+      <a class="a_content" href="{% url 'feedbacks' %}"><h1 align="center">Посмотреть отзывы</h1></a>
+    <div class="div_content">
+         <form method="post">
+             {% csrf_token %}
+             <table align="center">
+                 {{ FeedbackForm }}
+             </table>
+            <input class="input_submit" type="submit" value="Отправить">
+         </form>
+    </div>
+
+{% endblock Content %}

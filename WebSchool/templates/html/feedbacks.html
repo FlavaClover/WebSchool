@@ -1,9 +1,21 @@
 {% extends "html/base.html" %}
 {% block Title %} Отзывы {% endblock Title %}
 {% block Content %}
+    <a class="a_content" href="{% url 'send_feedback' %}"><h1 align="center">Оставить отзыв</h1></a>
     <div class="div_content">
+        {% for f in Feedbacks %}
         <div class="div_feedback">
+                <div class="div_feedback_content">
+                    <h1 align="center">{{ f.title }}</h1>
+                        <p class="p_feedback">{{ f.content }}</p>
+                        <time>{{ f.date }}. {{ f.author }}</time>
+                </div>
+        </div>
+        {% endfor %}
+        <div class="div_pagination">
+            {% include 'html/pagination.html' with page=Feedbacks %}
         </div>
     </div>
+
 
 {% endblock Content %}
