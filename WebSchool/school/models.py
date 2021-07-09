@@ -15,3 +15,10 @@ class Feedback(models.Model):
     content = models.TextField(max_length=5555, null=False)
     author = models.CharField(max_length=100, null=False)
     date = models.DateField(null=False)
+
+
+class Course(models.Model):
+    name = models.CharField(max_length=150, null=False)
+    description = models.TextField(null=False)
+    price = models.IntegerField(null=False)
+

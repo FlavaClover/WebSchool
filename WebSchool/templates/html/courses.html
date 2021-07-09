@@ -1,0 +1,14 @@
+{% extends "html/base.html" %}
+{% block Title %} Курсы {% endblock Title %}
+{% block Content %}
+    <h1 align="center">Наши курсы</h1>
+    <div class="div_content">
+        {% for c in Courses %}
+            <div class="div_course">
+                <h1 align="center"> {{ c.name }} </h1>
+                <p>{{ c.description }}</p>
+                <p>{{ c.price }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock Content %}

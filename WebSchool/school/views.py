@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from school.models import News, Feedback
+from school.models import News, Feedback, Course
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from school import forms
 
@@ -46,6 +46,7 @@ def feedbacks(request) -> HttpResponse:
 
 
 def send_feedback(request) -> HttpResponse:
+    """Отправка отзыва"""
     if request.POST:
         short = request.POST.get('title')
         content = request.POST.get('content')
@@ -55,3 +56,8 @@ def send_feedback(request) -> HttpResponse:
         f.save()
 
     return render(request, "html/send_feedback.html", context={"FeedbackForm": forms.Feedbacks})
+
+
+def courses(request) -> HttpResponse:
+    courses_model = Course.objects.all()
+    return render(request, "html/courses.html", context={"Courses": courses_model})
