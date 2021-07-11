@@ -28,8 +28,6 @@ def click_add():
     desc = str(txt_desc.get('1.0', 'end')).strip('\n')
     price = ent_price.get()
 
-    
-
     insert_course(name, desc, price)
 
 
@@ -50,13 +48,13 @@ if __name__ == "__main__":
     lbl_desc = tk.Label(window, text='Название')
     lbl_desc.pack()
 
-    txt_desc = tk.Text(window, width=50, height=10,  highlightbackground=BORDER_COLOR)
+    txt_desc = tk.Text(window, width=50, height=10, highlightbackground=BORDER_COLOR)
     txt_desc.pack()
 
     lbl_price = tk.Label(window, text='Цена')
     lbl_price.pack()
 
-    ent_price = tk.Entry(window,  highlightbackground=BORDER_COLOR)
+    ent_price = tk.Entry(window, highlightbackground=BORDER_COLOR)
     ent_price.pack()
 
     btn_add = tk.Button(window, text='Добавить', command=click_add)
