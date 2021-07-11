@@ -6,7 +6,7 @@
     <div class="div_content">
         {% for n in News %}
             <div class="div_news">
-                <img src="{% static 'img/news.jpg' %}">
+                <img src="{% static 'img/' %}{{ n.img }}">
                 <div class="div_news_content">
                     <h1><a href="{% url 'news_page' n.id %}">{{ n.title }}</a></h1>
                     <p>Автор: {{ n.author }}</p>
