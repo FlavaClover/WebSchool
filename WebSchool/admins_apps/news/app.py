@@ -45,6 +45,23 @@ def select_news():
             print("Соединение с SQLite закрыто")
 
 
+def delete_news(id_news: int):
+    try:
+        sqlite_connection = sqlite3.connect(DB_PATH)
+        cursor = sqlite_connection.cursor()
+        print('Соединение с SQLite установлено.')
+        delete_query = f"DELETE FROM school_news WHERE id = {id_news}"
+        cursor.execute(delete_query)
+        sqlite_connection.commit()
+        cursor.close()
+    except sqlite3.Error as error:
+        print("Ошибка при подключении к sqlite", error)
+    finally:
+        if sqlite_connection:
+            sqlite_connection.close()
+            print("Соединение с SQLite закрыто")
+
+
 def click_add():
     title = ent_title.get()
     content = str(txt_content.get('1.0', 'end')).strip('\n')
@@ -59,9 +76,15 @@ def load_news():
     data = select_news()
     if data is None:
         return
-    print(data)
+    lbox.delete(0, tk.END)
     for i in data:
         lbox.insert(tk.END, str(i[0]) + " " + str(i[1]))
+
+
+def click_delete():
+    id_news = int(lbox.selection_get().split()[0])
+    delete_news(id_news)
+    load_news()
 
 
 if __name__ == "__main__":
@@ -111,6 +134,9 @@ if __name__ == "__main__":
 
     lbox = tk.Listbox(frame_delete)
     lbox.pack()
+
+    btn_delete = tk.Button(frame_delete, text='Удалить', command=click_delete)
+    btn_delete.pack()
 
     load_news()
 

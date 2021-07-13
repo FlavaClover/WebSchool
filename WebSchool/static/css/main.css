@@ -25,6 +25,7 @@ h1{
 }
 .a_content{
     text-decoration: none;
+    color: #2D0034;
 }
 .div_content
 {
@@ -63,6 +64,12 @@ h1{
     border-bottom: 4px double #2D0034;
 
 }
+.div_course{
+    background-color: #D9FAF7;
+    width: 100%;
+    height: 100%;
+    border-bottom: 4px double #2D0034;
+}
 .hr_news
 {
     border: 4px double #2D0034;
@@ -99,7 +106,7 @@ h1{
 .p_news
 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 11pt; /* Размер шрифта в пунктах */
+    font-size: 11pt;
     color: #2D0034;
 }
 .div_pagination
@@ -121,4 +128,7 @@ form .input_submit {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+.h1_courses{
+
 }

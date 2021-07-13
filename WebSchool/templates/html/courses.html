@@ -1,14 +1,22 @@
 {% extends "html/base.html" %}
 {% block Title %} Курсы {% endblock Title %}
 {% block Content %}
-    <h1 align="center">Наши курсы</h1>
+    <h1 class="h1_courses" align="center">
+        <a class="a_content" href="{% url 'courses' %}">Наши курсы</a>
+        <a class="a_content" href="{% url 'request_to_courses' %}">Заявка на курсы</a>
+    </h1>
     <div class="div_content">
         {% for c in Courses %}
             <div class="div_course">
                 <h1 align="center"> {{ c.name }} </h1>
-                <p>{{ c.description }}</p>
-                <p>{{ c.price }}</p>
+                <div class="div_course_content">
+                    <p>{{ c.description }}</p>
+                    <p>Цена: {{ c.price }}</p>
+                </div>
             </div>
         {% endfor %}
+        <div class="div_pagination">
+            {% include 'html/pagination.html' with page=Courses %}
+        </div>
     </div>
 {% endblock Content %}

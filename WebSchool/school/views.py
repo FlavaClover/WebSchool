@@ -59,5 +59,18 @@ def send_feedback(request) -> HttpResponse:
 
 
 def courses(request) -> HttpResponse:
-    courses_model = Course.objects.all()
-    return render(request, "html/courses.html", context={"Courses": courses_model})
+    objects = Course.objects.all()
+    objects = list(reversed(objects))
+    paginator = Paginator(objects, 3)
+    page = request.GET.get('page')
+    try:
+        courses_model = paginator.page(page)
+    except PageNotAnInteger:
+        courses_model = paginator.page(1)
+    except EmptyPage:
+        courses_model = paginator.page(paginator.num_pages)
+
+    return render(request, "html/courses.html", context={"Courses": courses_model, 'page': page})
+
+def request_to_courses(request) -> HttpResponse:
+    return HttpResponse("Ok")
