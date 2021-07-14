@@ -1,0 +1,13 @@
+{% extends "html/base.html" %}
+{% block Title %} Вход {% endblock Title %}
+{% block Content %}
+    <h1 align="center">Вход</h1>
+    <form class="form_login" method="post">
+        {% csrf_token %}
+        <table align="center">
+            {{ LoginForm }}
+        </table>
+        <input class="input_submit" type="submit" value="Вход">
+    </form>
+    <p align="center">{{ err_msg }}</p>
+{% endblock Content %}

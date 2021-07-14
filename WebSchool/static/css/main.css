@@ -121,7 +121,7 @@ textarea{
     max-height: 100%;
     resize: none;
 }
-form{
+.form_feedback{
     padding: 10%;
 }
 form .input_submit {

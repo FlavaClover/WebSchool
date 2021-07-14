@@ -2,9 +2,11 @@ import datetime
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from school.models import News, Feedback, Course
+from school.models import News, Feedback, Course, RequestToCourse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth import authenticate, login, logout
 from school import forms
+
 
 # Create your views here.
 
@@ -12,6 +14,7 @@ from school import forms
 def index(request) -> HttpResponse:
     """Главная"""
     objects = News.objects.all()
+    print(objects)
     objects = list(reversed(objects))
     paginator = Paginator(objects, 3)
     page = request.GET.get('page')
@@ -72,5 +75,33 @@ def courses(request) -> HttpResponse:
 
     return render(request, "html/courses.html", context={"Courses": courses_model, 'page': page})
 
+
 def request_to_courses(request) -> HttpResponse:
-    return HttpResponse("Ok")
+    """Форма отправки заявки на обучение"""
+    if request.POST:
+        name = request.POST.get('name')
+        telegram = request.POST.get('telegram') if request.POST.get('telegram') != '' else '-'
+        phone = request.POST.get('phone')
+        r = RequestToCourse.objects.create(name=name, telegram=telegram, phone=phone)
+        r.save()
+
+    return render(request, "html/send_request_course.html", context={"RequestForm": forms.RequestToCourses})
+
+
+def login_page(request) -> HttpResponse:
+    """Страница входа в личный кабинет"""
+    err_msg = ""
+    if request.POST:
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+        if user is None:
+            err_msg = 'Пользователя не существует'
+        elif not user.is_active:
+            err_msg = 'Пользователь заблокирован'
+        else:
+            login(request, user)
+            err_msg = 'Успешно!'
+
+    return render(request, 'html/login.html', context={'LoginForm': forms.LoginForm, 'err_msg': err_msg})
