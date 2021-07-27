@@ -26,4 +26,6 @@ urlpatterns = [
     path('courses/', views.courses, name='courses'),
     path('request_to_courses/', views.request_to_courses, name='request_to_courses'),
     path('login/', views.login_page, name='login'),
+    path('personal_account/', views.personal_account_page, name='personal_account'),
+    path('personal_account/exit/', views.exit_from_personal_account, name='exit'),
 ]

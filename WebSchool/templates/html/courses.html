@@ -1,10 +1,9 @@
 {% extends "html/base.html" %}
 {% block Title %} Курсы {% endblock Title %}
 {% block Content %}
-    <h1 class="h1_courses" align="center">
-        <a class="a_content" href="{% url 'courses' %}">Наши курсы</a>
-        <a class="a_content" href="{% url 'request_to_courses' %}">Заявка на курсы</a>
-    </h1>
+    <h align="center">
+        <a class="a_header" href="{% url 'request_to_courses' %}"><h1>Заявка на курсы</h1></a>
+    </h>
     <div class="div_content">
         {% for c in Courses %}
             <div class="div_course">

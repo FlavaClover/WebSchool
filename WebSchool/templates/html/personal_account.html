@@ -1,0 +1,12 @@
+{% extends "html/base.html" %}
+{% block Title %} Личный кабинет {% endblock Title %}
+{% block Content %}
+
+    <div class="div_your_courses">
+        <h1>Твои курсы: </h1>
+        {% for c in Courses %}
+            <h2>{{ c.name }}</h2>
+        {% endfor %}
+    </div>
+
+{% endblock Content %}

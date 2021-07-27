@@ -1,10 +1,11 @@
 import datetime
 
-from django.shortcuts import render
-from django.http import HttpResponse
-from school.models import News, Feedback, Course, RequestToCourse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from school.models import News, Feedback, Course, RequestToCourse, Groups
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from school import forms
 
 
@@ -102,6 +103,30 @@ def login_page(request) -> HttpResponse:
             err_msg = 'Пользователь заблокирован'
         else:
             login(request, user)
-            err_msg = 'Успешно!'
+            return redirect('personal_account')
 
     return render(request, 'html/login.html', context={'LoginForm': forms.LoginForm, 'err_msg': err_msg})
+
+
+@login_required(login_url='login')
+def personal_account_page(request) -> HttpResponse:
+    user = request.user
+
+    user_courses = list()
+
+    groups = Groups.objects.all()
+    for i in groups:
+        if i.id_student == user.id:
+            user_courses.append(Course.objects.get(id=i.id_course))
+    print(user_courses)
+    return render(request, 'html/personal_account.html', context=
+                                                                {
+                                                                    'User': user,
+                                                                    'Courses': user_courses,
+                                                                })
+
+
+@login_required(login_url='login')
+def exit_from_personal_account(request):
+    logout(request)
+    return redirect('home')

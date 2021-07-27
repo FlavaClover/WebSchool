@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -36,4 +36,13 @@ class RequestToCourse(models.Model):
     name = models.CharField(max_length=150, null=False)
     telegram = models.CharField(max_length=50, null=True)
     phone = models.CharField(max_length=15, null=False)
+
+
+class Groups(models.Model):
+    id_student = models.IntegerField(null=False)
+    id_course = models.IntegerField(null=False)
+
+    def __repr__(self):
+        return f'{Groups.__name__}(student: {self.id_student}, course: {self.id_course})'
+
 

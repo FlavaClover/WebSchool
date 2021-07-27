@@ -14,14 +14,26 @@ h1{
     /*border: 5px outset #7AFAED;*/
     border-bottom: 5px outset #7AFAED;
 }
-.div_header div{
+
+.div_header_not_login{
     margin: 0 auto;
     display: inline-flex;
 }
+.div_header_login{
+    margin: 0 auto;
+    display: inline-flex;
+}
+.a_logout{
+    text-decoration: none;
+    color: #2D0034;
+    margin: 0 3px;
+}
+
 .a_header
 {
     margin: 0 40px;
     text-decoration: none;
+    color: #2D0034;
 }
 .a_content{
     text-decoration: none;
@@ -129,6 +141,7 @@ form .input_submit {
   margin-left: auto;
   margin-right: auto;
 }
-.h1_courses{
 
+.div_your_courses{
+    width: 30%;
 }

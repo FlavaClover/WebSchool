@@ -7,15 +7,26 @@
     <link rel="stylesheet" href="{% block CSS %} {% static 'css/main.css' %} {% endblock CSS %}">
 </head>
 <body>
+<header>
 <div class="div_header">
-    <div align="center">
-        <a href="{% url 'home' %}" class="a_header"><h1>Главная</h1></a>
-        <a href="" class="a_header"><h1>О нас</h1></a>
-        <a href="{% url 'courses' %}" class="a_header"><h1>Наши курсы</h1></a>
-        <a href="{% url 'feedbacks' %}" class="a_header"><h1>Отзывы</h1></a>
-        <a href="{% url 'login' %}" class="a_header"><h1>Личный кабинет ученика</h1></a>
-    </div>
+        {% if not User %}
+            <div align="center" class="div_header_not_login">
+                <a href="{% url 'home' %}" class="a_header"><h1>Главная</h1></a>
+                <a href="" class="a_header"><h1>О нас</h1></a>
+                <a href="{% url 'courses' %}" class="a_header"><h1>Наши курсы</h1></a>
+                <a href="{% url 'feedbacks' %}" class="a_header"><h1>Отзывы</h1></a>
+                <a href="{% url 'login' %}" class="a_header"><h1>Личный кабинет ученика</h1></a>
+            </div>
+        {% else %}
+            <div class="div_header_login">
+                <h1>Добро пожаловать, {{ User.first_name }}</h1>
+            </div>
+
+            <a href="{% url 'exit' %}" class="a_logout">Выход</a>
+        {% endif %}
+
 </div>
+</header>
 <div>{% block Content %} {% endblock Content %}</div>
 </body>
 </html>
