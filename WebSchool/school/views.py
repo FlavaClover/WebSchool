@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from school.models import News, Feedback, Course, RequestToCourse, Groups
+from school.models import News, Feedback, Course, RequestToCourse, Groups, Schedule, Teachers
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -130,9 +130,38 @@ def my_course(request, id_course: int) -> HttpResponse:
     course = Course.objects.get(id=id_course)
     user = request.user
 
+    schedule_of_course = Schedule.objects.filter(id_course=course.id)
+    times = list()
+    for s in schedule_of_course:
+        if s.time not in times:
+            times.append(s.time)
+
+    days = list(range(1, 8))
+
+    schedule = list()
+    for t in times:
+        sch = []
+        for d in days:
+            flag = False
+            for s in schedule_of_course:
+                if s.time == t and s.day == d:
+                    flag = True
+                    sch.append(s.time)
+            if not flag:
+                sch.append("")
+        schedule.append(sch)
+
+    print(schedule)
+
+    teacher = course.teacher
+
     return render(request, "html/my_course.html", context={
         "Course": course,
         "User": user,
+        "Schedule": schedule,
+        "Days": days,
+        "Times": times,
+        "Teacher": teacher,
     })
 
 
