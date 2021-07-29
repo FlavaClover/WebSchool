@@ -1,0 +1,51 @@
+{% extends "html/base.html" %}
+{% block Title %} {{ Course.name }} {% endblock Title %}
+{% block Content %}
+
+<div class="div_page_course">
+    <div class="div_page_course_info">
+        <h1>{{ Course.name }}</h1>
+    </div>
+
+    <div class="div_page_course_schedule_table">
+        <h2 align="center">Расписание</h2>
+        <table border="1" width="100%" cellpadding="5">
+            <tr>
+                <th></th>
+                <th>Пн</th>
+                <th>Вт</th>
+                <th>Ср</th>
+                <th>Чт</th>
+                <th>Пт</th>
+                <th>Сб</th>
+                <th>Вс</th>
+            </tr>
+            <tr>
+                <td>10:00</td>
+            </tr>
+
+            <tr>
+                <td>12:00</td>
+            </tr>
+
+            <tr>
+                <td>14:00</td>
+            </tr>
+
+            <tr>
+                <td>16:00</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="div_page_course_additional_info">
+        <h1 align="center">Дополнительная информация: </h1>
+        <ul type="square">
+            <li><a href="{{ Course.link_to_materials }}"> Материалы занятий </a> </li>
+            <li>Ежимесичная оплата: {{ Course.price }}</li>
+        </ul>
+    </div>
+
+</div>
+
+{% endblock Content %}

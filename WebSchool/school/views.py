@@ -119,11 +119,21 @@ def personal_account_page(request) -> HttpResponse:
         if i.id_student == user.id:
             user_courses.append(Course.objects.get(id=i.id_course))
     print(user_courses)
-    return render(request, 'html/personal_account.html', context=
-                                                                {
-                                                                    'User': user,
-                                                                    'Courses': user_courses,
-                                                                })
+    return render(request, 'html/personal_account.html', context={
+        'User': user,
+        'Courses': user_courses,
+    })
+
+
+@login_required(login_url="login")
+def my_course(request, id_course: int) -> HttpResponse:
+    course = Course.objects.get(id=id_course)
+    user = request.user
+
+    return render(request, "html/my_course.html", context={
+        "Course": course,
+        "User": user,
+    })
 
 
 @login_required(login_url='login')

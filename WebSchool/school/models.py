@@ -27,6 +27,7 @@ class Course(models.Model):
     name = models.CharField(max_length=150, null=False)
     description = models.TextField(null=False)
     price = models.IntegerField(null=False)
+    link_to_materials = models.CharField(max_length=500, null=True, default="https://disk.yandex.ru/d/Peol1rVjZTEjrA")
 
     def __repr__(self):
         return f'{Course.__name__}({self.name}, {self.price})'

@@ -23,10 +23,15 @@ h1{
     margin: 0 auto;
     display: inline-flex;
 }
+
 .a_logout{
     text-decoration: none;
     color: #2D0034;
     margin: 0 3px;
+}
+
+.a_logout:hover{
+    text-decoration: underline;
 }
 
 .a_header
@@ -35,6 +40,11 @@ h1{
     text-decoration: none;
     color: #2D0034;
 }
+
+.a_header:hover{
+    text-decoration: underline;
+}
+
 .a_content{
     text-decoration: none;
     color: #2D0034;
@@ -143,5 +153,46 @@ form .input_submit {
 }
 
 .div_your_courses{
+    /*background-color: gray;*/
     width: 30%;
+    border-left: 4px double #2D0034;
+    border-right: 4px double #2D0034;
+    border-bottom: 4px double #2D0034;
+    padding: 0 10px;
+}
+
+.div_your_courses div{
+    width: 100%;
+}
+
+.div_course_news{
+    border-left: 4px double #2D0034;
+    border-right: 4px double #2D0034;
+}
+
+.div_account_settings{
+    border-left: 4px double #2D0034;
+    border-right: 4px double #2D0034;
+}
+
+.div_account{
+    /*background-color: red;*/
+    width: 100%;
+    display: inline-flex;
+
+}
+
+.div_account div{
+    /*background-color: red;*/
+    margin: 0 2%;
+
+}
+
+.div_page_course{
+
+}
+
+.div_page_course_info{
+    text-align: center;
+    /*background-color: gray;*/
 }

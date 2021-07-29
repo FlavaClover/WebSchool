@@ -2,11 +2,25 @@
 {% block Title %} Личный кабинет {% endblock Title %}
 {% block Content %}
 
-    <div class="div_your_courses">
-        <h1>Твои курсы: </h1>
-        {% for c in Courses %}
-            <h2>{{ c.name }}</h2>
-        {% endfor %}
+    <div class="div_account">
+        <div class="div_your_courses">
+            <h1>Твои курсы: </h1>
+                <div>
+                    {% for c in Courses %}
+                        <ul><h2>
+                            <a class="a_header" href="{% url 'my_course' c.id %}">{{ c.name }}</a>
+                        </h2></ul>
+                    {% endfor %}
+                </div>
+        </div>
+
+{#        <div class="div_course_news">#}
+{#            <h1>Последние оповещения: </h1>#}
+{#        </div>#}
+{##}
+{#        <div class="div_account_settings">#}
+{#            <h1>Настройки аккаунта: </h1>#}
+{#        </div>#}
     </div>
 
 {% endblock Content %}
