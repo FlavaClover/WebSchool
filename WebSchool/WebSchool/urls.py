@@ -15,20 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from school import views
+from school import views as views_user
+from admins_tools import views as views_admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.NewsListView.as_view(), name='home'),
-    path('news/<int:id_news>', views.news_view, name='news_page'),
-    path('feedbacks/', views.FeedBacksListView.as_view(), name='feedbacks'),
-    path('sendfeedback/', views.send_feedback, name='send_feedback'),
-    path('courses/', views.CoursesListView.as_view(), name='courses'),
-    path('request_to_courses/', views.request_to_courses, name='request_to_courses'),
-    path('login/', views.login_page, name='login'),
+    path('', views_user.NewsListView.as_view(), name='home'),
+    path('news/<int:id_news>', views_user.news_view, name='news_page'),
+    path('feedbacks/', views_user.FeedBacksListView.as_view(), name='feedbacks'),
+    path('sendfeedback/', views_user.send_feedback, name='send_feedback'),
+    path('courses/', views_user.CoursesListView.as_view(), name='courses'),
+    path('request_to_courses/', views_user.request_to_courses, name='request_to_courses'),
+    path('login/', views_user.login_page, name='login'),
 
-    path('personal_account/', views.personal_account_page, name='personal_account'),
-    path('personal_account/exit/', views.exit_from_personal_account, name='exit'),
-    path('personal_account/course/<int:id_course>/', views.my_course, name='my_course'),
+    path('personal_account/', views_user.personal_account_page, name='personal_account'),
+    path('personal_account/exit/', views_user.exit_from_personal_account, name='exit'),
+    path('personal_account/course/<int:id_course>/', views_user.my_course, name='my_course'),
+
+    path('personal_account_admin/', views_admin.personal_account, name='admin_personal_account'),
 
 ]

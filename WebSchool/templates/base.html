@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block Title %} {% endblock Title %}</title>
-    <link rel="stylesheet" href="{% block CSS %} {% static 'css/main.css' %} {% endblock CSS %}">
+    {% block CSS %}
+        <link rel="stylesheet" href=" {% static 'css/main.css' %}">
+    {% endblock CSS %}
 </head>
 <body>
 <header>

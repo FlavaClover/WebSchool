@@ -76,7 +76,10 @@ def login_page(request) -> HttpResponse:
             err_msg = 'Пользователь заблокирован'
         else:
             login(request, user)
-            return redirect('personal_account')
+            if request.user.is_superuser:
+                return redirect('admin_personal_account')
+            else:
+                return redirect('personal_account')
 
     return render(request, 'html/login.html', context={'LoginForm': forms.LoginForm, 'err_msg': err_msg})
 
