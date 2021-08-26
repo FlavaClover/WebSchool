@@ -28,7 +28,7 @@ def click_add():
     desc = str(txt_desc.get('1.0', 'end')).strip('\n')
     price = ent_price.get()
 
-    insert_course(name, desc, price)
+    #insert_course(name, desc, price)
 
 
 if __name__ == "__main__":

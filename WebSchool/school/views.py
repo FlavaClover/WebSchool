@@ -6,26 +6,28 @@ from school.models import News, Feedback, Course, RequestToCourse, Groups, Sched
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView
 from school import forms
 
 
 # Create your views here.
 
+class NewsListView(ListView):
+    paginate_by = 3
+    model = News
+    template_name = "html/index.html"
 
-def index(request) -> HttpResponse:
-    """Главная"""
-    objects = News.objects.all()
-    print(objects)
-    objects = list(reversed(objects))
-    paginator = Paginator(objects, 3)
-    page = request.GET.get('page')
-    try:
-        news = paginator.page(page)
-    except PageNotAnInteger:
-        news = paginator.page(1)
-    except EmptyPage:
-        news = paginator.page(paginator.num_pages)
-    return render(request, "html/index.html", context={"News": news, 'page': page})
+
+class FeedBacksListView(ListView):
+    paginate_by = 3
+    model = Feedback
+    template_name = "html/feedbacks.html"
+
+
+class CoursesListView(ListView):
+    paginate_by = 3
+    model = Course
+    template_name = "html/courses.html"
 
 
 def news_view(request, id_news: int) -> HttpResponse:
@@ -34,24 +36,10 @@ def news_view(request, id_news: int) -> HttpResponse:
     return render(request, "html/news.html", context={"News": news})
 
 
-def feedbacks(request) -> HttpResponse:
-    """Отзывы"""
-    objects = Feedback.objects.all()
-    objects = list(reversed(objects))
-    paginator = Paginator(objects, 3)
-    page = request.GET.get('page')
-    try:
-        feedbacks_models = paginator.page(page)
-    except PageNotAnInteger:
-        feedbacks_models = paginator.page(1)
-    except EmptyPage:
-        feedbacks_models = paginator.page(paginator.num_pages)
-    return render(request, "html/feedbacks.html", context={"Feedbacks": feedbacks_models, 'page': page})
-
-
 def send_feedback(request) -> HttpResponse:
     """Отправка отзыва"""
     if request.POST:
+        form = forms.Feedbacks(request.POST)
         short = request.POST.get('title')
         content = request.POST.get('content')
         author = request.POST.get('author')
@@ -60,21 +48,6 @@ def send_feedback(request) -> HttpResponse:
         f.save()
 
     return render(request, "html/send_feedback.html", context={"FeedbackForm": forms.Feedbacks})
-
-
-def courses(request) -> HttpResponse:
-    objects = Course.objects.all()
-    objects = list(reversed(objects))
-    paginator = Paginator(objects, 3)
-    page = request.GET.get('page')
-    try:
-        courses_model = paginator.page(page)
-    except PageNotAnInteger:
-        courses_model = paginator.page(1)
-    except EmptyPage:
-        courses_model = paginator.page(paginator.num_pages)
-
-    return render(request, "html/courses.html", context={"Courses": courses_model, 'page': page})
 
 
 def request_to_courses(request) -> HttpResponse:

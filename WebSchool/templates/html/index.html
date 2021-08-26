@@ -4,7 +4,7 @@
 {% block Content %}
     <h1 align="center">Новости</h1>
     <div class="div_content">
-        {% for n in News %}
+        {% for n in page_obj %}
             <div class="div_news">
                 <img src="{% static 'img/' %}{{ n.img }}">
                 <div class="div_news_content">
@@ -14,8 +14,25 @@
                 </div>
             </div>
         {% endfor %}
-        <div class="div_pagination">
-            {% include 'html/pagination.html' with page=News %}
+
+        <div class="pagination" align="center">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
         </div>
     </div>
+
+
 {% endblock Content %}

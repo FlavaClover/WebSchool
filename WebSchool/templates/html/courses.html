@@ -5,7 +5,7 @@
         <a class="a_header" href="{% url 'request_to_courses' %}"><h1>Заявка на курсы</h1></a>
     </h>
     <div class="div_content">
-        {% for c in Courses %}
+        {% for c in page_obj %}
             <div class="div_course">
                 <h1 align="center"> {{ c.name }} </h1>
                 <div class="div_course_content">
@@ -14,8 +14,22 @@
                 </div>
             </div>
         {% endfor %}
-        <div class="div_pagination">
-            {% include 'html/pagination.html' with page=Courses %}
+        <div class="pagination" align="center">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
         </div>
     </div>
 {% endblock Content %}
